@@ -19,6 +19,7 @@ justinstall <- function(to_install){
   }
 
 # installing new packages
+if(nrow(missing)>0){
   for(i in 1:nrow(missing)){
       if(missing[i,]$source %in% c("CRAN")){
         install.packages(missing[i,]$package,repos="https://cloud.r-project.org/")  # classic installation from CRAN
@@ -35,7 +36,7 @@ justinstall <- function(to_install){
 
         }
       }
-
+}
 
 # goodbye
 
