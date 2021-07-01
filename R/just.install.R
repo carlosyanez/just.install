@@ -1,6 +1,8 @@
 #' install packages, only if there are missing and without attaching them
 #' @return no output
 #' @import tibble
+#' @import dplyr
+#' @impot  magrittr
 #' @importFrom BiocManager install
 #' @importFrom  remotes install_github
 #' @importFrom utils  install.packages installed.packages
@@ -18,11 +20,28 @@ justinstall <- function(to_install){
     message(there[i,]$package," already installed")
   }
 
+
+
 # installing new packages
 if(nrow(missing)>0){
+
+  # collect CRAN and CRAN-like repositories
+
+  crans <-  c("CRAN","miniCRAN","r-universe")
+
+  cran_repos <- missing %>%
+                mutate(url=if_else(url=="","https://cloud.r-project.org/")) %>%
+                filter(source %in% crans) %>%
+                select(url) %>%
+                distinct() %>%
+                pull(url)
+
+  options(repos = cran_repos)
+
+
   for(i in 1:nrow(missing)){
-      if(missing[i,]$source %in% c("CRAN")){
-        install.packages(missing[i,]$package,repos="https://cloud.r-project.org/")  # classic installation from CRAN
+      if(missing[i,]$source %in% crans){
+        install.packages(missing[i,]$package)  # classic installation from CRAN
       }else{
         if(missing[i,]$source %in% c("Bioc","Bioconductor","BioConductor")){
           BiocManager::install(missing[i,]$package)                                # Bioconductor

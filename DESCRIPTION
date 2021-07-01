@@ -16,6 +16,8 @@ Imports:
          tibble,
          remotes,
          BiocManager,
+         dplyr,
+         magrittr,
          utils
 suggests: 
          box,
