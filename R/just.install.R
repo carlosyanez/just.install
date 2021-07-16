@@ -32,11 +32,11 @@ justinstall <- function(to_install, cran_repo_option="https://cloud.r-project.or
     crans <-  c("CRAN","miniCRAN","r-universe")
 
     cran_repos <- missing %>%
-      mutate(url=if_else(url=="",cran_repo_option,url)) %>%
-      filter(source %in% crans) %>%
-      select(url) %>%
-      distinct() %>%
-      pull(url)
+      dplyr::mutate(url=if_else(url=="",cran_repo_option,url)) %>%
+      dplyr::filter(source %in% crans) %>%
+      dplyr::select(url) %>%
+      dplyr::distinct() %>%
+      dplyr::pull(url)
 
     options(repos = cran_repos)
 
@@ -83,5 +83,8 @@ justinstall <- function(to_install, cran_repo_option="https://cloud.r-project.or
   message("Task done. Goodbye!")
 
 }
+
+
+
 
 
