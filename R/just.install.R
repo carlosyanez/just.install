@@ -10,7 +10,7 @@
 #' @param to_install tibble or data.frame with packages to install (attr: package: package name, source: {"CRAN","Github","Bioconductor","Other"}, url: username/package for Github, repo url for Other)
 #' @param cran_repo CRAN repository to use (defaults to https://cloud.r-project.org/)
 #' @export justinstall
-justinstall <- function(to_install, cran_repo="https://cloud.r-project.org/"){
+justinstall <- function(to_install, cran_repo_option="https://cloud.r-project.org/"){
 
   installed_packages  <- rownames(installed.packages())
 
@@ -32,7 +32,7 @@ justinstall <- function(to_install, cran_repo="https://cloud.r-project.org/"){
     crans <-  c("CRAN","miniCRAN","r-universe")
 
     cran_repos <- missing %>%
-      mutate(url=if_else(url=="",cran_repo,url)) %>%
+      mutate(url=if_else(url=="",cran_repo_option,url)) %>%
       filter(source %in% crans) %>%
       select(url) %>%
       distinct() %>%
@@ -43,7 +43,9 @@ justinstall <- function(to_install, cran_repo="https://cloud.r-project.org/"){
 
     for(i in 1:nrow(missing)){
       if(missing[i,]$source %in% crans){
-        install.packages(missing[i,]$package,dependencies=TRUE)  # classic installation from CRAN
+        install.packages(missing[i,]$package,
+                         dependencies=TRUE,
+                         repos = cran_repo_option)  # classic installation from CRAN
       }else{
         if(missing[i,]$source %in% c("Bioc","Bioconductor","BioConductor")){
           BiocManager::install(missing[i,]$package,dependencies = TRUE)                                # Bioconductor
@@ -72,7 +74,7 @@ justinstall <- function(to_install, cran_repo="https://cloud.r-project.org/"){
     message("no missing dependencies")
   }else{
       message(str_c("installing dependencies:", missing_deps))
-      install.packages(missing_deps,dependencies=TRUE)
+      install.packages(missing_deps,dependencies=TRUE,repos = cran_repo_option)
       message("dependencies installed")
   }
 
