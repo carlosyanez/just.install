@@ -51,13 +51,14 @@ if(nrow(missing)>0){
           if(missing[i,]$source %in% c("Github","GitHub","github","gh")){
             remotes::install_github(missing[i,]$url,dependencies = TRUE)                               #Github repository
             }else{
+
+              message("installing ",missing[i,]$package)
               install.packages(missing[i,]$package,repos=missing[i,]$url,dependencies = TRUE)          # mini-cran, r-universe style repo
 
               #check that all dependencies have been installed
-
-              message("installing dependencies")
               dependencies <- unlist(tools::package_dependencies(missing[i,]$package))
               missing_deps <- dependencies[!(dependencies %in% installed_packages),]
+              message("installing dependencies: ",missing_deps)
               install.packages(missing_deps,dependencies=TRUE)
               message("dependencies installed")
 
