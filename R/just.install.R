@@ -41,15 +41,15 @@ if(nrow(missing)>0){
 
   for(i in 1:nrow(missing)){
       if(missing[i,]$source %in% crans){
-        install.packages(missing[i,]$package)  # classic installation from CRAN
+        install.packages(missing[i,]$package,dependencies=TRE)  # classic installation from CRAN
       }else{
         if(missing[i,]$source %in% c("Bioc","Bioconductor","BioConductor")){
-          BiocManager::install(missing[i,]$package)                                # Bioconductor
+          BiocManager::install(missing[i,]$package,dependencies = TRUE)                                # Bioconductor
         }else{
           if(missing[i,]$source %in% c("Github","GitHub","github","gh")){
-            remotes::install_github(missing[i,]$url)                               #Github repository
+            remotes::install_github(missing[i,]$url,dependencies = TRUE)                               #Github repository
             }else{
-              install.packages(missing[i,]$package,repos=missing[i,]$url)          # mini-cran, r-universe style repo
+              install.packages(missing[i,]$package,repos=missing[i,]$url,dependencies = TRUE)          # mini-cran, r-universe style repo
             }
           }
 
