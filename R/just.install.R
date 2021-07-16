@@ -73,7 +73,7 @@ justinstall <- function(to_install, cran_repo_option="https://cloud.r-project.or
   if(length(missing_deps)==0){
     message("no missing dependencies")
   }else{
-      message(str_c("installing dependencies:", missing_deps))
+      message(paste("installing dependencies:", missing_deps))
       install.packages(missing_deps,dependencies=TRUE,repos = cran_repo_option)
       message("dependencies installed")
   }
