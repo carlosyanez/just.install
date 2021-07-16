@@ -32,7 +32,7 @@ justinstall <- function(to_install, cran_repo="https://cloud.r-project.org/"){
     crans <-  c("CRAN","miniCRAN","r-universe")
 
     cran_repos <- missing %>%
-      mutate(url=if_else(url=="",cran_repo,"")) %>%
+      mutate(url=if_else(url=="",cran_repo,url)) %>%
       filter(source %in% crans) %>%
       select(url) %>%
       distinct() %>%
@@ -67,11 +67,11 @@ justinstall <- function(to_install, cran_repo="https://cloud.r-project.org/"){
 
   #check that all dependencies have been installed
   dependencies <- unlist(tools::package_dependencies(to_install$package))
-  missing_deps <- dependencies[!(dependencies %in% installed_packages),]
+  missing_deps <- dependencies[!(dependencies %in% installed_packages)]
   if(length(missing_deps)==0){
     message("no missing dependencies")
   }else{
-      message("installing dependencies: ", missing_deps)
+      message(str_c("installing dependencies:", missing_deps))
       install.packages(missing_deps,dependencies=TRUE)
       message("dependencies installed")
   }
