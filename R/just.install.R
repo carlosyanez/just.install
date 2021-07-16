@@ -56,14 +56,7 @@ justinstall <- function(to_install, cran_repo="https://cloud.r-project.org/"){
               message("installing ",missing[i,]$package)
               install.packages(missing[i,]$package,repos=missing[i,]$url,dependencies = TRUE)          # mini-cran, r-universe style repo
 
-              #check that all dependencies have been installed
-              dependencies <- unlist(tools::package_dependencies(missing[i,]$package))
-              missing_deps <- dependencies[!(dependencies %in% installed_packages),]
-              message("installing dependencies: ",missing_deps)
-              install.packages(missing_deps,dependencies=TRUE)
-              message("dependencies installed")
-
-            }else{message("I don't know hoe to install ",missing[i,]$package)}
+              }else{message("I don't know how to install ",missing[i,]$package)}
 
           }
         }
@@ -72,9 +65,20 @@ justinstall <- function(to_install, cran_repo="https://cloud.r-project.org/"){
     }
   }
 
+  #check that all dependencies have been installed
+  dependencies <- unlist(tools::package_dependencies(to_install$package))
+  missing_deps <- dependencies[!(dependencies %in% installed_packages),]
+  if(length(missing_deps)==0){
+    message("no missing dependencies")
+  }else{
+      message("installing dependencies: ", missing_deps)
+      install.packages(missing_deps,dependencies=TRUE)
+      message("dependencies installed")
+  }
+
   # goodbye
 
-  message("Task done")
+  message("Task done. Goodbye!")
 
 }
 
