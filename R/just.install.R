@@ -2,8 +2,8 @@
 #' @return no output
 #' @import tibble
 #' @import dplyr
-#' @import  magrittr
-#' @import  tools
+#' @import magrittr
+#' @import tools
 #' @importFrom BiocManager install
 #' @importFrom  remotes install_github
 #' @importFrom utils  install.packages installed.packages
@@ -32,7 +32,7 @@ justinstall <- function(to_install, cran_repo_option="https://cloud.r-project.or
     crans <-  c("CRAN","miniCRAN","r-universe")
 
     cran_repos <- missing %>%
-      dplyr::mutate(url=if_else(url=="",cran_repo_option,url)) %>%
+      dplyr::mutate(url=dplyr::if_else(url=="",cran_repo_option,url)) %>%
       dplyr::filter(source %in% crans) %>%
       dplyr::select(url) %>%
       dplyr::distinct() %>%
