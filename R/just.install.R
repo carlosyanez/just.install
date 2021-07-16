@@ -17,31 +17,31 @@ justinstall <- function(to_install, cran_repo="https://cloud.r-project.org/"){
   there <- to_install[to_install$package %in% installed_packages,]
   missing   <- to_install[!(to_install$package %in% installed_packages),]
 
-# these packages are already installed
+  # these packages are already installed
   for(i in 1:nrow(there)){
     message(there[i,]$package," already installed")
   }
 
 
 
-# installing new packages
-if(nrow(missing)>0){
+  # installing new packages
+  if(nrow(missing)>0){
 
-  # collect CRAN and CRAN-like repositories
+    # collect CRAN and CRAN-like repositories
 
-  crans <-  c("CRAN","miniCRAN","r-universe")
+    crans <-  c("CRAN","miniCRAN","r-universe")
 
-  cran_repos <- missing %>%
-                mutate(url=if_else(url=="",cran_repo,"")) %>%
-                filter(source %in% crans) %>%
-                select(url) %>%
-                distinct() %>%
-                pull(url)
+    cran_repos <- missing %>%
+      mutate(url=if_else(url=="",cran_repo,"")) %>%
+      filter(source %in% crans) %>%
+      select(url) %>%
+      distinct() %>%
+      pull(url)
 
-  options(repos = cran_repos)
+    options(repos = cran_repos)
 
 
-  for(i in 1:nrow(missing)){
+    for(i in 1:nrow(missing)){
       if(missing[i,]$source %in% crans){
         install.packages(missing[i,]$package,dependencies=TRUE)  # classic installation from CRAN
       }else{
@@ -50,8 +50,9 @@ if(nrow(missing)>0){
         }else{
           if(missing[i,]$source %in% c("Github","GitHub","github","gh")){
             remotes::install_github(missing[i,]$url,dependencies = TRUE)                               #Github repository
-            }else{
 
+          }else{
+            if(missing[i,]$source %in% c("mini-cran","r-universe")){
               message("installing ",missing[i,]$package)
               install.packages(missing[i,]$package,repos=missing[i,]$url,dependencies = TRUE)          # mini-cran, r-universe style repo
 
@@ -62,17 +63,18 @@ if(nrow(missing)>0){
               install.packages(missing_deps,dependencies=TRUE)
               message("dependencies installed")
 
+            }else{message("I don't know hoe to install ",missing[i,]$package)}
 
-            }
           }
-
         }
+
       }
-}
+    }
+  }
 
-# goodbye
+  # goodbye
 
-message("Task done")
+  message("Task done")
 
 }
 
