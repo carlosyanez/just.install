@@ -18,7 +18,8 @@ Imports:
          BiocManager,
          dplyr,
          magrittr,
-         utils
+         utils,
+         tools
 suggests: 
          box,
          librarian

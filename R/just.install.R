@@ -2,13 +2,15 @@
 #' @return no output
 #' @import tibble
 #' @import dplyr
-#' @impot  magrittr
+#' @import  magrittr
+#' @import  tools
 #' @importFrom BiocManager install
 #' @importFrom  remotes install_github
 #' @importFrom utils  install.packages installed.packages
 #' @param to_install tibble or data.frame with packages to install (attr: package: package name, source: {"CRAN","Github","Bioconductor","Other"}, url: username/package for Github, repo url for Other)
+#' @param cran_repo CRAN repository to use (defaults to https://cloud.r-project.org/)
 #' @export justinstall
-justinstall <- function(to_install){
+justinstall <- function(to_install, cran_repo="https://cloud.r-project.org/"){
 
   installed_packages  <- rownames(installed.packages())
 
@@ -30,7 +32,7 @@ if(nrow(missing)>0){
   crans <-  c("CRAN","miniCRAN","r-universe")
 
   cran_repos <- missing %>%
-                mutate(url=if_else(url=="","https://cloud.r-project.org/")) %>%
+                mutate(url=if_else(url=="",cran_repo,"")) %>%
                 filter(source %in% crans) %>%
                 select(url) %>%
                 distinct() %>%
@@ -41,7 +43,7 @@ if(nrow(missing)>0){
 
   for(i in 1:nrow(missing)){
       if(missing[i,]$source %in% crans){
-        install.packages(missing[i,]$package,dependencies=TRE)  # classic installation from CRAN
+        install.packages(missing[i,]$package,dependencies=TRUE)  # classic installation from CRAN
       }else{
         if(missing[i,]$source %in% c("Bioc","Bioconductor","BioConductor")){
           BiocManager::install(missing[i,]$package,dependencies = TRUE)                                # Bioconductor
@@ -50,6 +52,16 @@ if(nrow(missing)>0){
             remotes::install_github(missing[i,]$url,dependencies = TRUE)                               #Github repository
             }else{
               install.packages(missing[i,]$package,repos=missing[i,]$url,dependencies = TRUE)          # mini-cran, r-universe style repo
+
+              #check that all dependencies have been installed
+
+              message("installing dependencies")
+              dependencies <- unlist(tools::package_dependencies(missing[i,]$package))
+              missing_deps <- dependencies[!(dependencies %in% installed_packages),]
+              install.packages(missing_deps,dependencies=TRUE)
+              message("dependencies installed")
+
+
             }
           }
 
