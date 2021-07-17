@@ -8,9 +8,12 @@
 #' @importFrom  remotes install_github
 #' @importFrom utils  install.packages installed.packages
 #' @param to_install tibble or data.frame with packages to install (attr: package: package name, source: {"CRAN","Github","Bioconductor","Other"}, url: username/package for Github, repo url for Other)
-#' @param cran_repo CRAN repository to use (defaults to https://cloud.r-project.org/)
+#' @param cran_repo_option CRAN repository to use (defaults to https://cloud.r-project.org/)
+#' @param dependencies_option whether to install dependencies
 #' @export justinstall
-justinstall <- function(to_install, cran_repo_option="https://cloud.r-project.org/"){
+justinstall <- function(to_install,
+                        cran_repo_option="https://cloud.r-project.org/",
+                        dependencies_option=TRUE){
 
   installed_packages  <- rownames(installed.packages())
 
@@ -44,19 +47,19 @@ justinstall <- function(to_install, cran_repo_option="https://cloud.r-project.or
     for(i in 1:nrow(missing)){
       if(missing[i,]$source %in% crans){
         install.packages(missing[i,]$package,
-                         dependencies=TRUE,
+                         dependencies=dependencies_option,
                          repos = cran_repo_option)  # classic installation from CRAN
       }else{
         if(missing[i,]$source %in% c("Bioc","Bioconductor","BioConductor")){
-          BiocManager::install(missing[i,]$package,dependencies = TRUE)                                # Bioconductor
+          BiocManager::install(missing[i,]$package,dependencies = dependencies_option)                                # Bioconductor
         }else{
           if(missing[i,]$source %in% c("Github","GitHub","github","gh")){
-            remotes::install_github(missing[i,]$url,dependencies = TRUE)                               #Github repository
+            remotes::install_github(missing[i,]$url,dependencies = dependencies_option)                               #Github repository
 
           }else{
             if(missing[i,]$source %in% c("mini-cran","r-universe")){
               message("installing ",missing[i,]$package)
-              install.packages(missing[i,]$package,repos=missing[i,]$url,dependencies = TRUE)          # mini-cran, r-universe style repo
+              install.packages(missing[i,]$package,repos=missing[i,]$url,dependencies = dependencies_option)          # mini-cran, r-universe style repo
 
               }else{message("I don't know how to install ",missing[i,]$package)}
 
@@ -67,14 +70,16 @@ justinstall <- function(to_install, cran_repo_option="https://cloud.r-project.or
     }
   }
 
+  dep_check <- dplyr::if_else(dependencies_option==TRUE,"all",dependencies_option)
+
   #check that all dependencies have been installed
-  dependencies <- unlist(tools::package_dependencies(to_install$package))
+  dependencies <- unlist(tools::package_dependencies(to_install$package,which=dep_check))
   missing_deps <- dependencies[!(dependencies %in% installed_packages)]
   if(length(missing_deps)==0){
     message("no missing dependencies")
   }else{
       message(paste("installing dependencies:", missing_deps))
-      install.packages(missing_deps,dependencies=TRUE,repos = cran_repo_option)
+      install.packages(missing_deps,dependencies=dependencies_option,repos = cran_repo_option)
       message("dependencies installed")
   }
 

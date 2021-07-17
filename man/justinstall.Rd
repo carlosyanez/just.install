@@ -4,10 +4,18 @@
 \alias{justinstall}
 \title{install packages, only if there are missing and without attaching them}
 \usage{
-justinstall(to_install)
+justinstall(
+  to_install,
+  cran_repo_option = "https://cloud.r-project.org/",
+  dependencies_option = TRUE
+)
 }
 \arguments{
 \item{to_install}{tibble or data.frame with packages to install (attr: package: package name, source: {"CRAN","Github","Bioconductor","Other"}, url: username/package for Github, repo url for Other)}
+
+\item{cran_repo_option}{CRAN repository to use (defaults to https://cloud.r-project.org/)}
+
+\item{dependencies_option}{whether to install dependencies}
 }
 \value{
 no output
