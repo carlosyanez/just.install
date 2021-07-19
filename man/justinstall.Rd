@@ -7,7 +7,7 @@
 justinstall(
   to_install,
   cran_repo_option = "https://cloud.r-project.org/",
-  dependencies_option = TRUE
+  dependencies_option = "Depends"
 )
 }
 \arguments{
