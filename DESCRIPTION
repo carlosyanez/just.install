@@ -1,6 +1,6 @@
 Package: just.install
 Title: Very simple function to install packages without attaching
-Version: 0.0.0.9003
+Version: 0.0.0.9004
 Authors@R: 
     person(given = "Carlos",
            family = "Yanez Santibanez",
