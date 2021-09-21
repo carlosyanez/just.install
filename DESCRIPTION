@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "carlos.yanez.s@gmail.com")
 Description: This a package provides a function to install packages (if they are not installed) without attaching them
-License: `use_mit_license()`
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

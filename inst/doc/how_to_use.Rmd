@@ -1,0 +1,64 @@
+---
+title: "How to use this just.install"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to use this just.install}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+    echo=TRUE,
+    eval=FALSE,
+    comment = "#>"
+)
+```
+
+<img src="https://github.com/carlosyanez/just.install/raw/main/img/hexSticker.png" width = "175" height = "200" align="right" border=0 style="border:0; text-decoration:none; outline:none"/>
+
+# Just Install!
+<br>
+<br>
+
+The purpose of this package is to provide a simple utility to *just install* R packages, without loading it. This is especially useful when using with packages like **[https://klmr.me/box/]({box})**, which can be use to only load specify functions rather than a full package.
+<br>
+<br>
+<br>
+<br>
+
+There are many tools to load install and load packages, which this tool does not try to replace. This package is comprised of just one function (*justinstall()*), which only does the following:
+
+
+1. Checks if the package is installed. If it is install, it won't load it nor attempt to reinstall.
+
+1. If the package is not present, it will install it from the specified source. If necessary, dependencies will be installed.
+
+
+Installation sources include CRAN, Github, Bioconductor and CRAN-like repos (like [r-universe](https://r-universe.dev/)).
+
+## How to use
+
+To determine what to install, this package requires a **tibble** listing names and sources:
+
+```{r}
+packages_to_install <- tibble::tribble(~package,       ~source,~url,
+                                  "librarian",    "Github","DesiQuintans/librarian",    
+                                  "box",          "CRAN","",
+                                  "randomForest", "CRAN","",    # for RandomForest
+                                  "here",         "CRAN","",
+                                  "fs",           "CRAN","",
+                                  "aussiempas",    "r-universe","https://carlosyanez.r-universe.dev"
+                                  )
+
+```
+
+
+Then, just pass the tibble as input into the function:
+
+```{r}
+just.install::justinstall(packages_to_install)
+```
+
+
+Finally, load the packages of functions using your preferred method.
