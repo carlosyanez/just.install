@@ -3,7 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   how_to_use: how_to_use.html
-last_built: 2021-09-21T11:19Z
+last_built: 2021-09-21T12:03Z
 urls:
   reference: https://carlosyanez.github.io/just.install/reference
   article: https://carlosyanez.github.io/just.install/articles
