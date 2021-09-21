@@ -22,7 +22,7 @@ Alternatively, you can install it from [r-universe](https://r-universe.dev/)
 ```
 ## How to use 
 
-[How to use this just.install](https://carlosyanez.github.io/just.install/articles/how_to_use.html)
+[How to use just.install](https://carlosyanez.github.io/just.install/articles/how_to_use.html)
 
 
 ## Issues? bugs? Ideas?

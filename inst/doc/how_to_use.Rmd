@@ -1,8 +1,8 @@
 ---
-title: "How to use this just.install"
+title: "How to use just.install"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{How to use this just.install}
+  %\VignetteIndexEntry{How to use just.install}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
