@@ -22,5 +22,8 @@ Imports:
          tools,
          xfun
 Suggests: 
-         box,
-         librarian
+    knitr,
+    box,
+    librarian,
+    rmarkdown
+VignetteBuilder: knitr

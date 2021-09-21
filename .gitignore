@@ -1,2 +1,6 @@
 .Rproj.user
 .DS_Store
+inst/doc
+.Rhistory
+hex/gh.png
+hex/logo.png
