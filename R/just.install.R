@@ -1,4 +1,8 @@
-#' install packages, only if there are missing and without attaching them
+#' simply install packages
+#'
+#' Simple utility to install packages from a number of sources. It only install if it not present already.
+#' It does not attach any packages, existing or to be installed.
+#'
 #' @return no output
 #' @import tibble
 #' @import dplyr
@@ -8,12 +12,18 @@
 #' @importFrom  remotes install_github
 #' @importFrom utils  install.packages installed.packages
 #' @param to_install tibble or data.frame with packages to install (attr: package: package name, source: {"CRAN","Github","Bioconductor","Other"}, url: username/package for Github, repo url for Other)
-#' @param cran_repo_option CRAN repository to use (defaults to https://cloud.r-project.org/)
-# @param dependencies_option whether to install dependencies
+#' @param cran_repo_option CRAN repository. Defaults to system options
+#' @examples
+#' \dontrun{
+#' to_install <- tibble::tibble(package=c("tidyverse","ochRe","customthemes"),
+#'                              source=c("CRAN","Github","r-universe"),
+#'                              url=c("","ropenscilabs/ochRe","https://carlosyanez.r-universe.dev"))
+#'
+#' just.install::justinstall(to_install)
+#' }
 #' @export justinstall
 justinstall <- function(to_install,
-                        cran_repo_option="https://cloud.r-project.org/"){ #,
-#                        dependencies_option="Depends"){
+                        cran_repo_option=getOption('repos')){
 
   installed_packages  <- rownames(installed.packages())
 
@@ -21,47 +31,40 @@ justinstall <- function(to_install,
   missing   <- to_install[!(to_install$package %in% installed_packages),]
 
   # these packages are already installed
+  if(nrow(there)==0){
+    message("None installed")
+  }
+  else{
   for(i in 1:nrow(there)){
     message(there[i,]$package," already installed")
   }
-
-
+  }
 
   # installing new packages
   if(nrow(missing)>0){
 
-    # collect CRAN and CRAN-like repositories
-
-    crans <-  c("CRAN","miniCRAN","r-universe")
-
-    cran_repos <- missing %>%
-      dplyr::mutate(url=dplyr::if_else(url=="",cran_repo_option,url)) %>%
-      dplyr::filter(source %in% crans) %>%
-      dplyr::select(url) %>%
-      dplyr::distinct() %>%
-      dplyr::pull(url)
-
-    options(repos = cran_repos)
-
 
     for(i in 1:nrow(missing)){
-      if(missing[i,]$source %in% crans){
+      if(missing[i,]$source=='CRAN'){
+        message('Installing ',missing[i,]$package,' from default repos')
         install.packages(missing[i,]$package,
                        #  dependencies=dependencies_option,
                          repos = cran_repo_option)  # classic installation from CRAN
       }else{
         if(missing[i,]$source %in% c("Bioc","Bioconductor","BioConductor")){
+          message('Installing ',missing[i,]$package,' from BioConductor')
           BiocManager::install(missing[i,]$package) #,
                             #   dependencies = dependencies_option)                                # Bioconductor
         }else{
           if(missing[i,]$source %in% c("Github","GitHub","github","gh")){
+            message('Installing ',missing[i,]$package,' from Github')
             remotes::install_github(missing[i,]$url) #
                          # ,dependencies = dependencies_option)                               #Github repository
 
           }else{
             if(missing[i,]$source %in% c("mini-cran","r-universe")){
-              message("installing ",missing[i,]$package)
-              install.packages(missing[i,]$package,repos=missing[i,]$url)#,dependencies = dependencies_option)          # mini-cran, r-universe style repo
+              message("installing ",missing[i,]$package," from ",missing[i,]$url)
+              install.packages(missing[i,]$package,repos=c(missing[i,]$url))#,dependencies = dependencies_option)          # mini-cran, r-universe style repo
 
               }else{message("I don't know how to install ",missing[i,]$package)}
 
@@ -70,24 +73,10 @@ justinstall <- function(to_install,
 
       }
     }
+    message("Task done. Goodbye!")
   }
 
-  #dep_check <- dplyr::if_else(dependencies_option==TRUE,"all",dependencies_option)
 
-  #check that all dependencies have been installed
-  #dependencies <- unlist(tools::package_dependencies(to_install$package,which=dep_check))
-  #missing_deps <- dependencies[!(dependencies %in% installed_packages)]
-  #if(length(missing_deps)==0){
-  #  message("no missing dependencies")
-  #}else{
-  #    message(paste("installing dependencies:", missing_deps))
-  #    install.packages(missing_deps,dependencies=dependencies_option,repos = cran_repo_option)
-  #    message("dependencies installed")
-  #}
-
-  # goodbye
-
-  message("Task done. Goodbye!")
 
 }
 

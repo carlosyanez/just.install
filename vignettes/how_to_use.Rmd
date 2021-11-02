@@ -48,7 +48,7 @@ packages_to_install <- tibble::tribble(~package,       ~source,~url,
                                   "randomForest", "CRAN","",    # for RandomForest
                                   "here",         "CRAN","",
                                   "fs",           "CRAN","",
-                                  "aussiempas",    "r-universe","https://carlosyanez.r-universe.dev"
+                                  "aussiemaps",    "r-universe","https://carlosyanez.r-universe.dev"
                                   )
 
 ```
@@ -61,4 +61,4 @@ just.install::justinstall(packages_to_install)
 ```
 
 
-Finally, load the packages of functions using your preferred method.
+Finally, load the packages or functions using your preferred method.

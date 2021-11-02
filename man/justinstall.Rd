@@ -2,24 +2,28 @@
 % Please edit documentation in R/just.install.R
 \name{justinstall}
 \alias{justinstall}
-\title{install packages, only if there are missing and without attaching them}
+\title{simply install packages}
 \usage{
-justinstall(
-  to_install,
-  cran_repo_option = "https://cloud.r-project.org/",
-  dependencies_option = "Depends"
-)
+justinstall(to_install, cran_repo_option = getOption("repos"))
 }
 \arguments{
 \item{to_install}{tibble or data.frame with packages to install (attr: package: package name, source: {"CRAN","Github","Bioconductor","Other"}, url: username/package for Github, repo url for Other)}
 
-\item{cran_repo_option}{CRAN repository to use (defaults to https://cloud.r-project.org/)}
-
-\item{dependencies_option}{whether to install dependencies}
+\item{cran_repo_option}{CRAN repository. Defaults to system options}
 }
 \value{
 no output
 }
 \description{
-install packages, only if there are missing and without attaching them
+Simple utility to install packages from a number of sources. It only install if it not present already.
+It does not attach any packages, existing or to be installed.
+}
+\examples{
+\dontrun{
+to_install <- tibble::tibble(package=c("tidyverse","ochRe","customthemes"),
+                             source=c("CRAN","Github","r-universe"),
+                             url=c("","ropenscilabs/ochRe","https://carlosyanez.r-universe.dev"))
+
+just.install::justinstall(to_install)
+}
 }
