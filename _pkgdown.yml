@@ -5,7 +5,7 @@ template:
   opengraph:
     image:
       src: img/bbox_ghcard.png
-      alt: "uofgdataanalyticsreport: Template for UofG Data Analytics reports"
+      alt: "just.install: Simple package installer"
     twitter:
       creator: "@carlosyanez"
       card: summary_large_image
@@ -24,8 +24,8 @@ authors:
     href: http://www.carlosyanez.cl
 url: https://carlosyanez.github.io/just.install
 home:
-  title: uofgdataanalyticsreport
-  description: Template for UofG Data Analytics reports.
+  title: just.install
+  description: Simple package installer.
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{How to use this just.install}

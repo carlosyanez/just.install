@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 <br>
 <br>
 
-The purpose of this package is to provide a simple utility to *just install* R packages, without loading it. This is especially useful when using with packages like **[https://klmr.me/box/]({box})**, which can be use to only load specify functions rather than a full package.
+The purpose of this package is to provide a simple utility to *just install* R packages, without loading it. This is especially useful when using with packages like **[{box}](https://klmr.me/box/)**, which can be use to only load specify functions rather than a full package.
 <br>
 <br>
 <br>
