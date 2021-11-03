@@ -1,8 +1,9 @@
 <img src="https://github.com/carlosyanez/just.install/raw/main/img/hexSticker.png" width = "175" height = "200" align="right" border=0 style="border:0; text-decoration:none; outline:none"/>
 
+# just.install
+
 [![just.install status badge](https://carlosyanez.r-universe.dev/badges/just.install)](https://carlosyanez.r-universe.dev)
 
-# just.install
 Simple utility to *just* install R packages.
 
 ## Install
