@@ -2,7 +2,7 @@
 
 # just.install
 
-[![just.install status badge](https://carlosyanez.r-universe.dev/badges/just.install)](https://carlosyanez.r-universe.dev)
+[![just.install status badge](https://carlosyanez.r-universe.dev/badges/just.install)](https://carlosyanez.r-universe.dev) [![R-CMD-check](https://github.com/carlosyanez/just.install/workflows/R-CMD-check/badge.svg)](https://github.com/carlosyanez/just.install/actions) 
 
 Simple utility to *just* install R packages.
 
