@@ -21,9 +21,6 @@
 #' @export justinstall
 justinstall <- function(to_install){
 
-  #to comply with rmd checks
-  source_type <- NULL
-
   # get list of installed packages
   installed_packages  <- utils::installed.packages()[,1]
 
@@ -42,9 +39,11 @@ justinstall <- function(to_install){
     }
       #standardise source names
       # fill bioconductor if source_type is empty
+    
+      missing$source_type <- tolower(source_type)
+
       missing <- missing %>%
-                 dplyr::mutate(source_type=tolower(source_type),
-                        source_type=dplyr::case_when(
+                 dplyr::mutate(source_type=dplyr::case_when(
                                       source_type=="gh"           ~ 'github',
                                       source_type=="universe"     ~ 'r-universe',
                                       source_type=="bioconductor" ~ 'bioc',
