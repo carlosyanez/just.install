@@ -26,6 +26,9 @@ Alternatively, you can install it from [r-universe](https://r-universe.dev/)
 
 [How to use just.install](https://carlosyanez.github.io/just.install/articles/how_to_use.html)
 
+## Acknowledgements
+
+This package is really a wrapper of the *install_* functions in the package [remotes](https://remotes.r-lib.org/). All the credit to their creators.
 
 ## Issues? bugs? Ideas?
 

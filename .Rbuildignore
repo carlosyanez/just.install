@@ -1,3 +1,5 @@
+^renv$
+^renv\.lock$
 ^just\.install\.Rproj$
 ^\.Rproj\.user$
 ^doc$
@@ -8,3 +10,6 @@
 ^LICENSE\.md$
 ^\.github$
 ^codecov\.yml$
+^hex*
+^img
+logo.png
