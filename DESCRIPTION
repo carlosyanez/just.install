@@ -1,13 +1,13 @@
 Package: just.install
 Title: Very simple function to install packages without attaching
-Version: 0.0.0.9005
+Version: 1.0.0.0000
 Authors@R: 
     person(given = "Carlos",
            family = "Yanez Santibanez",
            role = c("aut", "cre"),
            email = "carlos.yanez.s@gmail.com")
-Description: This a package provides a function to install packages (if they are not installed) without attaching them
-License: MIT + file LICENSE
+Description: This a package provides a function to install packages without attaching them. If a package it is already installed, it will be skipped.
+License: GPL (>= 3) + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
@@ -15,12 +15,10 @@ RoxygenNote: 7.1.2
 Imports: 
          tibble,
          remotes,
-         BiocManager,
          dplyr,
          magrittr,
-         utils,
-         tools,
-         xfun
+         stringr,
+         utils
 Suggests: 
     knitr,
     box,

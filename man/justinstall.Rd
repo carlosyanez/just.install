@@ -4,12 +4,10 @@
 \alias{justinstall}
 \title{simply install packages}
 \usage{
-justinstall(to_install, cran_repo_option = getOption("repos"))
+justinstall(to_install)
 }
 \arguments{
-\item{to_install}{tibble or data.frame with packages to install (attr: package: package name, source: {"CRAN","Github","Bioconductor","Other"}, url: username/package for Github, repo url for Other)}
-
-\item{cran_repo_option}{CRAN repository. Defaults to system options}
+\item{to_install}{tibble or data.frame with packages to install (see vignette for details)}
 }
 \value{
 no output
