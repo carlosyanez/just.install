@@ -32,19 +32,14 @@ justinstall <- function(to_install){
   missing   <- to_install[!(to_install$package %in% installed_packages),]
 
   #main installation logic
-  if(nrow(there)==0){
-    message("None installed")
+  if(nrow(missing)==0){
+    message("Nothing to install")
   }
   else{
     # list all packages already installed
     for(i in 1:nrow(there)){
       message(there[i,]$package," already installed")
     }
-    if(nrow(missing)==0){
-      message(("Nothing to install"))
-    }
-    else{
-
       #standardise source names
       # fill bioconductor if source_type is empty
       missing <- missing %>%
@@ -69,7 +64,7 @@ justinstall <- function(to_install){
         install_package(missing[i,]$package,missing[i,]$source,missing[i,]$url)
       }
       message("Task complete Goodbye!")
-    }
+
   }
 
 }
