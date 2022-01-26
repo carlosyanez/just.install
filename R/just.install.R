@@ -5,10 +5,8 @@
 #'
 #' @return no output
 #' @importFrom dplyr mutate case_when
-#' @importFrom magrittr %>%
 #' @import remotes
 #' @importFrom utils  installed.packages
-#' @importFrom stringr str_c
 #' @param to_install tibble or data.frame with packages to install (see vignette for details)
 #' @examples
 #' \dontrun{
@@ -39,21 +37,20 @@ justinstall <- function(to_install){
     }
       #standardise source names
       # fill bioconductor if source_type is empty
-    
-      missing$source_type <- tolower(source_type)
 
-      missing <- missing %>%
-                 dplyr::mutate(source_type=dplyr::case_when(
-                                      source_type=="gh"           ~ 'github',
-                                      source_type=="universe"     ~ 'r-universe',
-                                      source_type=="bioconductor" ~ 'bioc',
-                                      TRUE ~ source_type
+      missing$source <- tolower(missing$source)
+
+      missing <- missing |>
+                 dplyr::mutate(source=dplyr::case_when(
+                                      source=="gh"           ~ 'github',
+                                      source=="universe"     ~ 'r-universe',
+                                      source=="bioconductor" ~ 'bioc',
+                                      TRUE ~ source
                                       )
-                        ) %>%
-                  dplyr::mutate(
-                        source_param = dplyr::case_when(
-                                      source_type=="bioc" & source_param=="" ~ source_type,
-                                      TRUE ~ source_param
+                        ) |>
+                  dplyr::mutate(url=dplyr::case_when(
+                                      source=="bioc" & url=="" ~ source,
+                                      TRUE ~ url
                                       )
                         )
 
@@ -75,12 +72,11 @@ justinstall <- function(to_install){
 #' @param  source_type  where it should be installed from
 #' @param  source_param repository source, where it applies
 #' @import remotes
-#' @importFrom stringr str_c
 install_package <- function(package_name,source_type,source_param){
 
   ### use {remotes} function based on source type
 
-  message(stringr::str_c("Installing ", package_name, " from", source_type))
+  message(paste0("Installing ", package_name, " from", source_type,sep=""))
 
   switch(source_type,
          "bioc"       = {remotes::install_bioc(package_name)},
@@ -98,7 +94,7 @@ install_package <- function(package_name,source_type,source_param){
   )
 
 
-  message(stringr::str_c(package_name, " installed"))
+  message(paste0(package_name, " installed",sep=""))
 
 
 }

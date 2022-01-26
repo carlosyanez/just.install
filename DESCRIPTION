@@ -1,6 +1,6 @@
 Package: just.install
 Title: Very simple function to install packages without attaching
-Version: 1.0.0.0009
+Version: 1.0.1.0001
 Authors@R: 
     person(given = "Carlos",
            family = "Yanez Santibanez",
@@ -16,8 +16,6 @@ Imports:
     tibble,
     remotes,
     dplyr,
-    magrittr,
-    stringr,
     utils
 Suggests: 
     knitr,
