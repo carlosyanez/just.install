@@ -15,20 +15,12 @@ knitr::opts_chunk$set(
 )
 ```
 
-<img src="https://github.com/carlosyanez/just.install/raw/main/img/hexSticker.png" width = "175" height = "200" align="right" border=0 style="border:0; text-decoration:none; outline:none"/>
-
-<br>
-<br>
 
 The purpose of this package is to provide a simple utility to *just install* R packages, without loading it. This is especially useful when using with packages like **[{box}](https://klmr.me/box/)**, which can be use to only load specify functions rather than a full package.
 
 
 This package is a wrapper for the *install_* family of functions in the [{remotes}](https://remotes.r-lib.org/) package.
 
-<br>
-<br>
-<br>
-<br>
 
 There are many tools to load install and load packages, which this tool does not try to replace. This package is comprised of just one function (*justinstall()*), which only does the following:
 
@@ -37,12 +29,12 @@ There are many tools to load install and load packages, which this tool does not
 
 1. If the package is not there, it will install it from the specified source. 
 
-The second motivation behind this package is too address the a common requirement in R training/university assigmnent, where it is asked to provide a "self-contained" script or notebook that install all required libraries. Having a function that does check before installing can make testing faster by allowing to run code from start to end without reinstalling packages over and over (Note:this does not pretend to be a replacement to [{renv}]()).
+The second motivation behind this package is too address the a common requirement in R training/university assignment, where it is asked to provide a "self-contained" script or notebook that install all required libraries. Having a function that does check before installing can make testing faster by allowing to run code from start to end without reinstalling packages over and over (Note:this does not pretend to be a replacement to [{renv}](https://rstudio.github.io/renv/)).
 
 
 ## How to use
 
-To determine what to install, this package requires a **tibble** listing names and sources:
+To determine what to install, create a data frame or a *tibble*, containing the package name, the source repoistory and the url/github adress or the repository in question. For instance, using **tibble::tribble()**:
 
 ```{r}
 packages_to_install <- tibble::tribble(~package,       ~source,~url,
@@ -57,7 +49,7 @@ packages_to_install <- tibble::tribble(~package,       ~source,~url,
 ```
 
 
-Then, just pass the tibble as input into the function:
+Then, just pass the data frame/tibble as input into the function:
 
 ```{r}
 just.install::justinstall(packages_to_install)
