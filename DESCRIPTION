@@ -6,8 +6,8 @@ Authors@R:
            family = "Yanez Santibanez",
            role = c("aut", "cre"),
            email = "carlos.yanez.s@gmail.com")
-Description: This a package provides a function to install packages without attaching them. If a package it is already installed, it will be skipped.
-License: GPL (>= 3) + file LICENSE
+Description: Install packages without attaching them. If a package it is already installed, it will be skipped.
+License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

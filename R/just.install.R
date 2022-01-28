@@ -6,7 +6,6 @@
 #' @return no output
 #' @importFrom dplyr mutate case_when
 #' @import remotes
-#' @import tibble
 #' @importFrom utils  installed.packages
 #' @param to_install tibble or data.frame with packages to install (see vignette for details)
 #' @examples
