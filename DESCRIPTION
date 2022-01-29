@@ -7,6 +7,8 @@ Authors@R:
            role = c("aut", "cre"),
            email = "carlos.yanez.s@gmail.com")
 Description: Install packages without attaching them. If a package it is already installed, it will be skipped.
+URL: https://carlosyanez.github.io/just.install/
+BugReports: https://github.com/carlosyanez/just.install/issues
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true

@@ -21,3 +21,4 @@ logo.png
 .gitignore
 cran-comments.md
 ^CRAN-RELEASE$
+^cran-comments\.md$
