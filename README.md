@@ -2,18 +2,29 @@
 
 # just.install
 
-[![just.install status badge](https://carlosyanez.r-universe.dev/badges/just.install)](https://carlosyanez.r-universe.dev) [![R-CMD-check](https://github.com/carlosyanez/just.install/workflows/R-CMD-check/badge.svg)](https://github.com/carlosyanez/just.install/actions) 
+<!-- badges: start -->
+[![just.install status badge](https://carlosyanez.r-universe.dev/badges/just.install)](https://carlosyanez.r-universe.dev) [![R-CMD-check](https://github.com/carlosyanez/just.install/workflows/R-CMD-check/badge.svg)](https://github.com/carlosyanez/just.install/actions) [![CRAN status](https://www.r-pkg.org/badges/version/just.install)](https://CRAN.R-project.org/package=just.install)[![CRAN status](https://cranlogs.r-pkg.org/badges/downloads/just.install)](https://cranlogs.r-pkg.org/badges/downloads/just.install)
+<!-- badges: end -->
+
+
 
 Simple utility to *just* install R packages.
 
 ## Install
-You can install this template with:
+
+You can install the package from CRAN:
+
+```
+install.packages("just.install")
+```
+
+For the development version, you can use:
 
 ```
  devtools::install_github("carlosyanez/just.install")
  ```
  
-Alternatively, you can install it from [r-universe](https://r-universe.dev/) 
+Alternatively, you can install the dev version from [r-universe](https://r-universe.dev/) 
 
 ```
   options(repos = c(
