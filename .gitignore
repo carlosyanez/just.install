@@ -6,3 +6,4 @@ hex/logo.png
 /doc/
 /Meta/
 .Rbuildignore
+.Rhistory

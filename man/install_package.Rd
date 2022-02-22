@@ -19,3 +19,4 @@ no output
 \description{
 internal function to that installs a single package based on data provided
 }
+\keyword{internal}

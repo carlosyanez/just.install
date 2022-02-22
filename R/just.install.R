@@ -72,6 +72,8 @@ justinstall <- function(to_install){
 #' @param  source_type  where it should be installed from
 #' @param  source_param repository source, where it applies
 #' @import remotes
+#' @keywords internal
+#' @NoRd
 install_package <- function(package_name,source_type,source_param){
 
   ### use {remotes} function based on source type
