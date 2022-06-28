@@ -91,7 +91,7 @@ install_package <- function(package_name,source_type,source_param){
          "local"      = {remotes::install_local(source_param)},
          "svn"        = {remotes::install_svn(source_param)},
          "url"        = {remotes::install_url(source_param)},
-         "r-universe" = {remotes::install_cran(package_name,repos=c(source_param))}
+         "r-universe" = {remotes::install_cran(package_name,repos=c(source_param, getOption("repos")["CRAN"]))}
 
   )
 
