@@ -79,7 +79,7 @@ install_package <- function(package_name,source_type,source_param){
   ### use {remotes} function based on source type
 
   message(paste0("Installing ", package_name, " from ", source_type,sep=""))
-  message(getOption("repos")["CRAN"])
+  message(past0("a -- ",getOption("repos")["CRAN"])
   switch(source_type,
          "bioc"       = {remotes::install_bioc(package_name)},
          "bitbucket"  = {remotes::install_bitbucket(source_param)},
