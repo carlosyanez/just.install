@@ -4,7 +4,7 @@
 \alias{install_package}
 \title{internal function to that installs a single package based on data provided}
 \usage{
-install_package(package_name, source_type, source_param)
+install_package(package_name, source_type, source_param, cran_repos, depends)
 }
 \arguments{
 \item{package_name}{package name}

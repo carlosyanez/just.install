@@ -4,10 +4,14 @@
 \alias{justinstall}
 \title{simply install packages}
 \usage{
-justinstall(to_install)
+justinstall(to_install, cran_repos = getOption("repos"), dependencies = TRUE)
 }
 \arguments{
 \item{to_install}{tibble or data.frame with packages to install (see vignette for details)}
+
+\item{cran_repos}{list of CRAN repositories (defauls to getOptions("repos"))}
+
+\item{dependencies}{whether to install dependencies, as per remotes::install_ specs (defaults to TRUE)}
 }
 \value{
 no output
